@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/organic-2b0ed4dc-2dfd-40c6-bdce-d828993dd331/styles.css">
+<script src="_ds/organic-2b0ed4dc-2dfd-40c6-bdce-d828993dd331/_ds_bundle.js"></script>
+<style>@keyframes ff-drift{0%,100%{translate:0 0}50%{translate:0 -4px}}</style>
+</helmet>
+<div ref="{{ rootRef }}" onClick="{{ onRootClick }}" style="position:relative;display:inline-block;width:{{ w }}px;padding-top:15px;font-family:var(--font-body);cursor:pointer" onMouseEnter="{{ onEnter }}" onMouseLeave="{{ onLeave }}">
+  <div ref="{{ anchorRef }}" style="position:absolute;top:15px;left:50%;width:0;height:0;z-index:1">
+    <sc-for list="{{ pills }}" as="p" hint-placeholder-count="6">
+      <a href="{{ p.href }}" download="{{ p.dl }}" target="_blank" rel="noreferrer" style="position:absolute;top:0;left:50%;display:inline-flex;align-items:center;height:36px;padding:0 15px;border-radius:999px;background:var(--color-neutral-100);color:var(--color-neutral-900);font-size:13px;font-weight:600;line-height:1;white-space:nowrap;text-decoration:none;box-shadow:var(--shadow-md);transform:{{ p.transform }};opacity:{{ p.opacity }};pointer-events:{{ p.pe }};transition:transform 520ms cubic-bezier(.34,1.56,.64,1) {{ p.delay }},opacity 190ms ease {{ p.delay }},box-shadow 160ms ease" style-hover="box-shadow:0 10px 26px color-mix(in srgb,#2e2b25 28%,transparent)">
+        <span style="display:block;animation:{{ p.anim }}">{{ p.label }}</span>
+      </a>
+    </sc-for>
+  </div>
+  <div style="position:relative;width:{{ w }}px;height:{{ h }}px">
+    <span aria-hidden="true" style="position: absolute; inset: 0; z-index: 0; border-radius: var(--radius-md); transform: perspective(600px) rotateX(8deg); transform-origin: 50% 100%; background-image: linear-gradient(135deg,#f6e2a0 0%,#d9ac42 18%,#a97f23 40%,#f0d283 58%,#c69a30 78%,#e8c96f 100%); background-color: #D4A83C"></span>
+    <span aria-hidden="true" style="position:absolute;top:10%;right:8%;left:8%;z-index:1;height:52%;border-radius:var(--radius-sm);background:var(--color-neutral-100);opacity:{{ paperOpacity }};transform:{{ paperTransform }};transition:transform 380ms cubic-bezier(.23,1,.32,1),opacity 220ms ease"></span>
+    <span aria-hidden="true" style="position: absolute; right: 0; bottom: 0; left: 0; z-index: 2; display: flex; flex-direction: column; justify-content: flex-end; gap: 5px; height: 76%; padding: 14px 16px; border-radius: var(--radius-md); color: #141416; box-shadow: 0 -10px 24px color-mix(in srgb,#2e2b25 26%,transparent); transform: {{ flapTransform }}; transform-origin: 50% 100%; transition: transform 520ms cubic-bezier(.23,1,.32,1); background-image: linear-gradient(135deg,#f6e2a0 0%,#d9ac42 18%,#a97f23 40%,#f0d283 58%,#c69a30 78%,#e8c96f 100%); background-color: #D4A83C">
+      <span style="font-family:var(--font-heading);font-size:17px;line-height:1.1">{{ label }}</span>
+      <span style="font-size:11px;opacity:.75">{{ sub }}</span>
+    </span>
+
+  </div>
+</div>
+<button type="button" aria-label="{{ label }}" onClick="{{ onToggle }}" style="position: absolute; left: 98px; z-index: 3; height: 76%; margin: 0; padding: 0; border: 0; border-radius: var(--radius-md); background: transparent; cursor: pointer; color: #C71E1E; text-align: center; top: 124px"></button></x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:560,&quot;height&quot;:420},&quot;items&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;Array&lt;{label:string,href:string}&gt;&quot;},&quot;label&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Projects&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;sublabel&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;trigger&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;hover&quot;,&quot;click&quot;],&quot;default&quot;:&quot;hover&quot;,&quot;tsType&quot;:&quot;'hover'|'click'&quot;},&quot;spread&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:210,&quot;min&quot;:120,&quot;max&quot;:400,&quot;tsType&quot;:&quot;number&quot;},&quot;lift&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:30,&quot;min&quot;:10,&quot;max&quot;:80,&quot;tsType&quot;:&quot;number&quot;},&quot;tilt&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:7,&quot;min&quot;:0,&quot;max&quot;:20,&quot;tsType&quot;:&quot;number&quot;},&quot;flapAngle&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:34,&quot;min&quot;:10,&quot;max&quot;:60,&quot;tsType&quot;:&quot;number&quot;}}">
+class Component extends DCLogic {
+  state = { open: false, room: null, pinned: false };
+  constructor(props) { super(props); this.anchorRef = React.createRef(); this.rootRef = React.createRef(); }
+  // The cloud is centred on the folder, so near a viewport edge it would spill
+  // outside the page's overflow clip — measure the side room and fan within it.
+  set(open) { this.setState(open ? { open } : { open, room: null }); }
+  measure() {
+    const el = this.anchorRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const room = { left: Math.max(60, r.left - 12), right: Math.max(60, window.innerWidth - r.left - 12) };
+    const cur = this.state.room;
+    if (!cur || cur.left !== room.left || cur.right !== room.right) this.setState({ room });
+  }
+  componentDidMount() {
+    this.measure();
+    this.onResize = () => this.measure();
+    window.addEventListener('resize', this.onResize);
+    // A click pins the folder open so the notes stay reachable; clicking
+    // anywhere outside (or on a note) releases the pin.
+    this.onDocDown = e => {
+      if (!this.state.pinned) return;
+      const root = this.rootRef.current;
+      if (root && root.contains(e.target)) return;
+      this.setState({ pinned: false, open: false, room: null });
+    };
+    document.addEventListener('pointerdown', this.onDocDown, true);
+  }
+  componentDidUpdate() { if (this.state.open) this.measure(); }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
+    document.removeEventListener('pointerdown', this.onDocDown, true);
+  }
+  renderVals() {
+    const items = (this.props.items || []).map(i => typeof i === 'string' ? { label: i, href: '#' } : i);
+    const room = this.state.room;
+    const spread = Math.min(this.props.spread ?? 210, room ? Math.min(room.left, room.right) : Infinity);
+    const lift = this.props.lift ?? 30, tilt = this.props.tilt ?? 7;
+    const open = this.state.open;
+    // Deterministic arc fan: rows are centred on the folder, the middle of each
+    // row sits highest, and tilt grows symmetrically toward the edges.
+    const rows = []; let row = [], w = 0;
+    items.forEach((it, i) => {
+      const pw = 30 + it.label.length * 7.4;
+      if (row.length && w + 12 + pw > spread * 2) { rows.push({ items: row, w }); row = []; w = 0; }
+      row.push({ i, pw }); w += (row.length > 1 ? 12 : 0) + pw;
+    });
+    if (row.length) rows.push({ items: row, w });
+    const arc = 22;
+    const pos = [];
+    rows.forEach((r, ri) => {
+      let x = -r.w / 2;
+      r.items.forEach(({ i, pw }) => {
+        const cx = x + pw / 2;
+        const t = r.w > pw ? Math.max(-1, Math.min(1, cx / (r.w / 2))) : 0;
+        let px = cx;
+        if (room) px = Math.max(-room.left + pw / 2, Math.min(room.right - pw / 2, px));
+        pos[i] = { x: px, y: -lift - ri * 52 - arc * (1 - t * t), r: tilt * t, j: (i % 4) / 4 };
+        x += pw + 12;
+      });
+    });
+    const n = items.length;
+    const pills = items.map((it, i) => {
+      const p = pos[i] || { x: 0, y: 0, r: 0, j: 0 };
+      const delay = open ? `${i * 45}ms` : `${(n - 1 - i) * 22}ms`;
+      return {
+        label: it.label, href: it.href || '#', dl: it.download || null,
+        transform: open
+          ? `translate(calc(-50% + ${p.x.toFixed(1)}px), ${p.y.toFixed(1)}px) rotate(${p.r.toFixed(2)}deg) scale(1)`
+          : 'translate(-50%, 44px) scale(.6)',
+        opacity: open ? 1 : 0,
+        pe: open ? 'auto' : 'none',
+        delay,
+        anim: open ? `ff-drift 3.4s ease-in-out infinite ${(-p.j * 3).toFixed(2)}s` : 'none'
+      };
+    });
+    return {
+      pills, w: this.props.width ?? 212, h: this.props.height ?? Math.round((this.props.width ?? 212) * 0.707), label: this.props.label ?? 'Folder',
+      sub: this.props.sublabel || `${n} ${n === 1 ? 'item' : 'items'}`,
+      paperOpacity: open ? 1 : 0,
+      paperTransform: open ? 'translateY(0)' : 'translateY(10px)',
+      flapTransform: `perspective(600px) rotateX(-${open ? (this.props.flapAngle ?? 34) : 16}deg)`,
+      rootRef: this.rootRef,
+      onEnter: () => { if ((this.props.trigger ?? 'hover') === 'hover') this.set(true); },
+      onLeave: () => { if (this.state.pinned) return; if ((this.props.trigger ?? 'hover') === 'hover') this.set(false); },
+      onRootClick: e => {
+        if (e.target.closest && e.target.closest('a')) return;
+        if (this.state.pinned) this.setState({ pinned: false, open: false, room: null });
+        else this.setState({ pinned: true, open: true });
+      },
+      onToggle: () => this.set(!open)
+    };
+  }
+}
+</script>
+</body>
+</html>

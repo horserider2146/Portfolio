@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/organic-2b0ed4dc-2dfd-40c6-bdce-d828993dd331/styles.css">
+<script src="_ds/organic-2b0ed4dc-2dfd-40c6-bdce-d828993dd331/_ds_bundle.js"></script>
+<style>
+  :root{
+    --color-bg:#0b0b0d;
+    --color-surface:#161619;
+    --color-text:#ffffff;
+    --color-divider:rgba(255,255,255,.14);
+    --color-accent:#d4a83c;
+    --gold-sheen:linear-gradient(135deg,#f6e2a0 0%,#d9ac42 18%,#a97f23 40%,#f0d283 58%,#c69a30 78%,#e8c96f 100%);
+    --gold-sheen-hi:linear-gradient(135deg,#fdf0c4 0%,#e8c05a 18%,#c0922f 40%,#fbe6ab 58%,#dcae42 78%,#f4dc95 100%);
+    --color-accent-200:rgba(212,168,60,.16);
+    --color-accent-600:#e6c05c;
+    --color-accent-700:#d4a83c;
+    --color-accent-800:#c39a33;
+    --color-accent-900:#7d6019;
+    --color-accent-2-700:#131316;
+    --black-sheen:linear-gradient(135deg,#2a2a2e 0%,#0d0d0f 26%,#242429 48%,#0b0b0d 70%,#1e1e22 100%);
+    --color-neutral-100:#ffffff;
+    --color-neutral-200:#f2f1ee;
+    --color-neutral-300:#3a3a3f;
+    --color-neutral-400:#4a4a50;
+    --color-neutral-500:#5c5c63;
+    --color-neutral-700:#b8b5ae;
+    --color-neutral-800:#dcd9d3;
+    --color-neutral-900:#141416;
+  }
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--color-bg);overflow-x:hidden}
+  @media (max-width:640px){.dock-panel{gap:8px !important;padding:8px 10px !important}}
+  a{color:var(--color-accent-700)}a:hover{color:var(--color-accent-800)}
+  @keyframes spec-spin{to{rotate:360deg}}
+  html[data-reduced]{scroll-behavior:auto}
+  html[data-reduced] *,html[data-reduced] *::before,html[data-reduced] *::after{animation:none !important;transition-duration:1ms !important}
+</style>
+</helmet>
+<div style="position:relative;min-height:100vh;padding:0 0 150px;background:radial-gradient(1100px 620px at 78% -8%,var(--color-accent-200),transparent 70%),var(--color-bg);font-family:var(--font-body);color:var(--color-text);overflow-x:hidden">
+
+  <canvas ref="{{ sparkRef }}" aria-hidden="true" style="position:fixed;inset:0;width:100vw;height:100vh;z-index:80;pointer-events:none"></canvas>
+
+  <div ref="{{ dodgeRef }}" style="position:fixed;inset:0;z-index:45;pointer-events:none">
+    <button type="button" ref="{{ dodgeBtnRef }}" onClick="{{ onCatchLeave }}" style="position:absolute;right:22px;bottom:22px;pointer-events:auto;display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 22px;border:1px solid var(--color-neutral-400);border-radius:999px;background:var(--color-neutral-300);color:var(--color-text);font-family:var(--font-heading);font-size:15px;cursor:pointer;box-shadow:var(--shadow-md);white-space:nowrap">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 20H5.5A1.5 1.5 0 0 1 4 18.5v-13A1.5 1.5 0 0 1 5.5 4H10"></path><path d="m15 8 4 4-4 4"></path><path d="M19 12H9"></path></svg>
+      {{ leaveLabel }}
+    </button>
+  </div>
+
+  <header style="display:flex;align-items:center;justify-content:space-between;gap:20px;padding:26px 44px">
+    <div style="display:flex;align-items:baseline;gap:10px">
+      <span style="font-family:var(--font-heading);font-size:20px">Ritarshi Roy</span>
+      <span style="font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--color-neutral-700)">Portfolio</span>
+    </div>
+    <span style="font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--color-neutral-700)">{{ viewLabel }}</span>
+  </header>
+
+  <section id="home" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;align-items:start;max-width:1180px;margin:0 auto;padding:10px 44px 0;scroll-margin-top:12px">
+    <div style="position:relative;height:600px;touch-action:none">
+      <div ref="{{ pivotRef }}" style="position:absolute;top:0;left:50%;width:0;height:0">
+        <span style="position:absolute;top:-7px;left:-7px;width:14px;height:14px;border-radius:999px;background:var(--gold-sheen);box-shadow:var(--shadow-sm)"></span>
+        <div ref="{{ strapRef }}" style="position:absolute;top:0;left:-11px;width:22px;height:168px;transform-origin:50% 0;background:repeating-linear-gradient(135deg,#0e0e10 0 9px,#8f6a1c 9px 11px,#f2d283 13px 15px,#c99f38 16px 18px);border-radius:0 0 3px 3px;box-shadow:var(--shadow-sm)">
+          <span style="position:absolute;bottom:-10px;left:50%;translate:-50% 0;width:26px;height:20px;border-radius:5px;background:linear-gradient(180deg,var(--color-neutral-300),var(--color-neutral-500))"></span>
+          <div ref="{{ cardRef }}" onPointerDown="{{ onCardDown }}" style="position:absolute;top:176px;left:50%;width:232px;margin-left:-116px;height:320px;transform-origin:50% -18px;perspective:1000px;cursor:grab;touch-action:none;user-select:none">
+            <div style="position:relative;width:100%;height:100%;transform:{{ flipTransform }};transform-style:preserve-3d;transition:transform 700ms cubic-bezier(.23,1,.32,1)">
+              <div style="position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--radius-lg);background:linear-gradient(135deg,#2a2a2e 0%,#0d0d0f 26%,#242429 48%,#0b0b0d 70%,#1e1e22 100%);color:#ffffff;box-shadow:var(--shadow-lg);padding:20px;display:flex;flex-direction:column;gap:12px">
+                <span style="width:54px;height:9px;border-radius:999px;background:var(--color-neutral-300);align-self:center"></span>
+                <img class="washed" src="assets/portrait.jpg" alt="Ritarshi Roy" style="width:100%;height:150px;object-fit:cover;object-position:50% 25%;border-radius:var(--radius-md)">
+                <div>
+                  <div style="font-family:var(--font-heading);font-size:21px;line-height:1.1">Ritarshi Roy</div>
+                  <div style="font-size:12px;color:var(--color-neutral-700);margin-top:4px">MBA-Tech · Data Science</div>
+                </div>
+                <div style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent-700)">
+                  <span>NMIMS Mumbai</span><span>2025</span>
+                </div>
+              </div>
+              <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);border-radius:var(--radius-lg);background:var(--black-sheen);color:var(--color-neutral-100);box-shadow:var(--shadow-lg);padding:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px">
+                <canvas ref="{{ qrRef }}" width="180" height="180" style="width:150px;height:150px;border-radius:var(--radius-sm);background:var(--color-neutral-100)"></canvas>
+                <div style="text-align:center">
+                  <div style="font-family:var(--font-heading);font-size:15px">github.com/</div>
+                  <div style="font-family:var(--font-heading);font-size:15px">horserider2146</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="position:absolute;bottom:6px;left:0;right:0;display:flex;justify-content:center;gap:10px">
+        <button type="button" onClick="{{ onFlip }}" class="btn btn-secondary" style="cursor:pointer;background:transparent">Flip card</button>
+        <span style="align-self:center;font-size:12px;color:var(--color-neutral-700)">or drag it</span>
+      </div>
+    </div>
+
+    <div style="padding-top:26px;max-width:560px">
+      <p style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:10px">Data science · full-stack · Android</p>
+      <h1 onClick="{{ onDecrypt }}" title="Click to scramble" style="font-size:clamp(38px,5vw,60px);margin-bottom:18px;cursor:pointer;-webkit-user-select:none;user-select:none">{{ headline }}</h1>
+      <p style="font-size:17px;line-height:1.65;color:var(--color-neutral-800);max-width:50ch">Third-year Data Science student at NMIMS Mumbai. I work across the whole stack — FastAPI and Node backends, Kotlin apps, Postgres and Redis, and ML pipelines for forecasting and fraud. Most of what I build starts as a question I could not answer with an existing tool: what does a network attack look like in real time, which insurance claims deserve a human, how consistent is a Formula 1 driver really.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:26px">
+        <button type="button" onClick="{{ goProjects }}" style="position:relative;display:inline-flex;padding:1.5px;border:0;border-radius:999px;overflow:hidden;background:var(--color-accent-900);cursor:pointer;box-shadow:var(--shadow-md)">
+          <span aria-hidden="true" style="position:absolute;inset:-120%;background:conic-gradient(from 0deg,transparent 0 28%,rgba(255,255,255,.85) 36%,transparent 46% 100%);animation:spec-spin 5s linear infinite"></span>
+          <span style="position:relative;border-radius:999px;background:var(--gold-sheen);color:var(--color-neutral-900);font-family:var(--font-heading);font-size:16px;padding:15px 32px">See the work</span>
+        </button>
+        <a href="assets/Ritarshi_Roy_CV.pdf" download="Ritarshi_Roy_CV.pdf" target="_blank" rel="noreferrer" style="position:relative;display:inline-flex;padding:1.5px;border-radius:999px;overflow:hidden;background:var(--color-neutral-400);text-decoration:none;box-shadow:var(--shadow-sm)">
+          <span aria-hidden="true" style="position:absolute;inset:-120%;background:conic-gradient(from 0deg,transparent 0 30%,rgba(255,255,255,.9) 38%,transparent 48% 100%);animation:spec-spin 6.5s linear infinite"></span>
+          <span style="position:relative;border-radius:999px;background:var(--gold-sheen);color:var(--color-neutral-900);font-family:var(--font-heading);font-size:16px;padding:15px 32px">Download CV</span>
+        </a>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:34px;margin-top:44px;padding-top:24px;border-top:1px solid var(--color-divider)">
+        <div><div style="font-family:var(--font-heading);font-size:28px">8.75</div><div style="font-size:12px;color:var(--color-neutral-700)">CGPA, MPSTME</div></div>
+        <div><div style="font-family:var(--font-heading);font-size:28px">7</div><div style="font-size:12px;color:var(--color-neutral-700)">shipped projects</div></div>
+        <div><div style="font-family:var(--font-heading);font-size:28px">1</div><div style="font-size:12px;color:var(--color-neutral-700)">research paper presented</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" style="max-width:1180px;margin:0 auto;padding:90px 44px 0;scroll-margin-top:12px">
+    <h2 style="font-size:clamp(30px,4vw,44px);margin-bottom:8px">Projects Made By Me</h2>
+
+    <div style="display:flex;justify-content:center;align-items:flex-start;padding:88px 0 205px">
+      <dc-import name="FolderFloat" label="Projects" sublabel="5 repos + CV" items="{{ projectItems }}" spread="{{ 330 }}" lift="{{ 30 }}" width="{{ 186 }}" hint-size="186px,160px" trigger="hover"></dc-import>
+    </div>
+  </section>
+
+  <section id="skills" style="max-width:1180px;margin:0 auto;padding:20px 44px 0;scroll-margin-top:12px">
+    <h2 style="font-size:clamp(30px,4vw,44px);margin-bottom:8px">I AM SKILLED AT</h2>
+
+    <button type="button" onClick="{{ onToggleSkills }}" style="display:inline-flex;align-items:center;gap:8px;height:40px;margin-top:16px;padding:0 20px;border:1px solid var(--color-accent);border-radius:999px;background:transparent;color:var(--color-accent);font-family:var(--font-heading);font-size:14px;cursor:pointer;transition:background 160ms ease,color 160ms ease" style-hover="background:var(--gold-sheen);color:var(--color-neutral-900)">{{ skillsToggleLabel }}</button>
+    <sc-if value="{{ skillsFoldered }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-wrap:wrap;gap:20px;justify-content:flex-start;margin:190px 0 40px">
+        <dc-import name="FolderFloat" label="Languages" items="{{ skillLanguages }}" spread="{{ 120 }}" width="{{ 150 }}" hint-size="150px,150px"></dc-import>
+        <dc-import name="FolderFloat" label="Frameworks" items="{{ skillFrameworks }}" spread="{{ 120 }}" width="{{ 150 }}" hint-size="150px,150px"></dc-import>
+        <dc-import name="FolderFloat" label="Data &amp; AI" items="{{ skillData }}" spread="{{ 120 }}" width="{{ 150 }}" hint-size="150px,150px"></dc-import>
+        <dc-import name="FolderFloat" label="Android &amp; Ops" items="{{ skillOps }}" spread="{{ 120 }}" width="{{ 150 }}" hint-size="150px,150px"></dc-import>
+      </div>
+    </sc-if>
+    <sc-if value="{{ skillsFlat }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:22px;margin:32px 0 40px;max-width:820px">
+        <sc-for list="{{ skillGroups }}" as="g" hint-placeholder-count="4">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <span style="font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--color-accent)">{{ g.title }}</span>
+            <div style="display:flex;flex-wrap:wrap;gap:9px">
+              <sc-for list="{{ g.items }}" as="s" hint-placeholder-count="6">
+                <span style="display:inline-flex;align-items:center;height:34px;padding:0 15px;border-radius:999px;background:var(--color-neutral-100);color:var(--color-neutral-900);font-size:13px;font-weight:600;line-height:1">{{ s.label }}</span>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+  </section>
+
+  <section id="contact" style="max-width:1180px;margin:0 auto;padding:100px 44px 0;scroll-margin-top:12px">
+    <h2 style="font-size:clamp(30px,4vw,44px);margin-bottom:8px">Get in touch</h2>
+    <p style="color:var(--color-neutral-700);max-width:52ch">Mumbai, Maharashtra · open to internships</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:28px;max-width:860px">
+      <a class="card" href="mailto:ritarshiroy@gmail.com" style="display:block;padding:22px;border-radius:var(--radius-lg);background:var(--color-surface);text-decoration:none;color:var(--color-text);box-shadow:var(--shadow-sm)" style-hover="box-shadow:var(--shadow-md)">
+        <div style="font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--color-accent-700)">Email</div>
+        <div style="font-family:var(--font-heading);font-size:19px;margin-top:6px">ritarshiroy@gmail.com</div>
+      </a>
+      <a class="card" href="tel:+918420997619" style="display:block;padding:22px;border-radius:var(--radius-lg);background:var(--color-surface);text-decoration:none;color:var(--color-text);box-shadow:var(--shadow-sm)" style-hover="box-shadow:var(--shadow-md)">
+        <div style="font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--color-accent-700)">Phone</div>
+        <div style="font-family:var(--font-heading);font-size:19px;margin-top:6px">+91 84209 97619</div>
+      </a>
+      <a class="card" href="https://github.com/horserider2146" target="_blank" rel="noreferrer" style="display:block;padding:22px;border-radius:var(--radius-lg);background:var(--color-surface);text-decoration:none;color:var(--color-text);box-shadow:var(--shadow-sm)" style-hover="box-shadow:var(--shadow-md)">
+        <div style="font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--color-accent-700)">GitHub</div>
+        <div style="font-family:var(--font-heading);font-size:19px;margin-top:6px">horserider2146</div>
+      </a>
+      <a class="card" href="https://www.linkedin.com/in/ritarshi-roy-a8b19131a" target="_blank" rel="noreferrer" style="display:block;padding:22px;border-radius:var(--radius-lg);background:var(--color-surface);text-decoration:none;color:var(--color-text);box-shadow:var(--shadow-sm)" style-hover="box-shadow:var(--shadow-md)">
+        <div style="font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--color-accent-700)">LinkedIn</div>
+        <div style="font-family:var(--font-heading);font-size:19px;margin-top:6px">ritarshi-roy</div>
+      </a>
+    </div>
+    <div style="display:flex;gap:14px;margin-top:30px">
+      <a href="assets/Ritarshi_Roy_CV.pdf" download="Ritarshi_Roy_CV.pdf" target="_blank" rel="noreferrer" style="position:relative;display:inline-flex;padding:1.5px;border-radius:999px;overflow:hidden;background:var(--color-accent-900);text-decoration:none;box-shadow:var(--shadow-md)">
+        <span aria-hidden="true" style="position:absolute;inset:-120%;background:conic-gradient(from 0deg,transparent 0 28%,rgba(255,255,255,.85) 36%,transparent 46% 100%);animation:spec-spin 5s linear infinite"></span>
+        <span style="position:relative;border-radius:999px;background:var(--gold-sheen);color:var(--color-neutral-900);font-family:var(--font-heading);font-size:16px;padding:15px 32px">Download CV</span>
+      </a>
+    </div>
+  </section>
+
+  <nav class="dock-panel" ref="{{ dockRef }}" style="position:fixed;left:50%;bottom:22px;translate:-50% 0;z-index:40;display:flex;align-items:center;gap:14px;padding:10px 14px;max-width:calc(100vw - 24px);border-radius:var(--radius-lg);background:color-mix(in srgb,var(--color-surface) 88%,transparent);backdrop-filter:blur(10px);border:1px solid var(--color-divider);box-shadow:var(--shadow-lg)">
+    <button type="button" ref="{{ d0 }}" onClick="{{ goHome }}" aria-label="Home" style="position:relative;display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:var(--radius-md);border:1px solid var(--color-divider);background:var(--gold-sheen);color:var(--color-neutral-900);cursor:pointer;transition:background 160ms ease" style-hover="background:var(--gold-sheen-hi)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9.5V21h14V9.5"></path></svg>
+      <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;bottom:-7px;left:50%;translate:-50% 0;width:5px;height:5px;border-radius:999px;background:var(--color-accent)"></span></sc-if>
+    </button>
+    <button type="button" ref="{{ d1 }}" onClick="{{ goProjects }}" aria-label="Projects" style="position:relative;display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:var(--radius-md);border:1px solid var(--color-divider);background:var(--gold-sheen);color:var(--color-neutral-900);cursor:pointer;transition:background 160ms ease" style-hover="background:var(--gold-sheen-hi)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5A1.5 1.5 0 0 1 4.5 6h4L11 8.5h8.5A1.5 1.5 0 0 1 21 10v8a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18z"></path></svg>
+      <sc-if value="{{ isProjects }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;bottom:-7px;left:50%;translate:-50% 0;width:5px;height:5px;border-radius:999px;background:var(--color-accent)"></span></sc-if>
+    </button>
+    <button type="button" ref="{{ d2 }}" onClick="{{ goSkills }}" aria-label="Skills" style="position:relative;display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:var(--radius-md);border:1px solid var(--color-divider);background:var(--gold-sheen);color:var(--color-neutral-900);cursor:pointer;transition:background 160ms ease" style-hover="background:var(--gold-sheen-hi)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 8 4.5-8 4.5-8-4.5z"></path><path d="m4 12.5 8 4.5 8-4.5"></path></svg>
+      <sc-if value="{{ isSkills }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;bottom:-7px;left:50%;translate:-50% 0;width:5px;height:5px;border-radius:999px;background:var(--color-accent)"></span></sc-if>
+    </button>
+    <button type="button" ref="{{ d3 }}" onClick="{{ goContact }}" aria-label="Contact" style="position:relative;display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:var(--radius-md);border:1px solid var(--color-divider);background:var(--gold-sheen);color:var(--color-neutral-900);cursor:pointer;transition:background 160ms ease" style-hover="background:var(--gold-sheen-hi)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="m3.5 7 8.5 6 8.5-6"></path></svg>
+      <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;bottom:-7px;left:50%;translate:-50% 0;width:5px;height:5px;border-radius:999px;background:var(--color-accent)"></span></sc-if>
+    </button>
+    <span aria-hidden="true" style="width:1px;height:34px;background:var(--color-divider)"></span>
+    <button type="button" ref="{{ d4 }}" onClick="{{ onToggleMotion }}" aria-label="Reduce motion" aria-pressed="{{ reducedMotion }}" title="{{ motionTitle }}" style="position:relative;display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:var(--radius-md);border:1px solid var(--color-divider);background:{{ motionBg }};color:{{ motionInk }};cursor:pointer;transition:background 160ms ease">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3.5l2.5-6 3.5 12 2.5-6H21"></path></svg>
+      <sc-if value="{{ reducedMotion }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;bottom:-7px;left:50%;translate:-50% 0;width:5px;height:5px;border-radius:999px;background:var(--color-accent)"></span></sc-if>
+    </button>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;gravity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:34,&quot;min&quot;:10,&quot;max&quot;:80,&quot;step&quot;:2,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Lanyard&quot;},&quot;dockMagnification&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:118,&quot;min&quot;:105,&quot;max&quot;:140,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Dock&quot;}}">
+class Component extends DCLogic {
+  HEADLINE = 'I build systems that watch, predict and explain.';
+  state = { view: 'home', flipped: false, dodges: 0, left: false, headline: 'I build systems that watch, predict and explain.', skillsFlat: false, reduced: false };
+
+  constructor(props) {
+    super(props);
+    this.pivotRef = React.createRef();
+    this.strapRef = React.createRef();
+    this.cardRef = React.createRef();
+    this.qrRef = React.createRef();
+    this.dockRef = React.createRef();
+    this.dockItems = [React.createRef(), React.createRef(), React.createRef(), React.createRef(), React.createRef()];
+    this.sparkRef = React.createRef();
+    this.dodgeRef = React.createRef();
+    this.dodgeBtnRef = React.createRef();
+    this.sim = { a1: 0.22, v1: 0, a2: 0.22, v2: 0, drag: null, target: 0 };
+  }
+
+  componentDidMount() {
+    let saved = null;
+    try { saved = localStorage.getItem('rr-reduced-motion'); } catch (e) {}
+    const sys = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reduced = saved === null ? sys : saved === '1';
+    this.applyReduced(reduced);
+    this.setState({ reduced });
+    this.drawQR();
+    this.startSim();
+    this.bindDock();
+    this.bindSpy();
+    this.bindSpark();
+    this.bindDodge();
+    this.bindReveal();
+    this.bindSwing();
+    if (!reduced) setTimeout(() => this.decrypt(), 260);
+  }
+
+  applyReduced(on) {
+    document.documentElement.toggleAttribute('data-reduced', !!on);
+    this.reduced = !!on;
+  }
+
+  toggleMotion() {
+    const next = !this.state.reduced;
+    this.applyReduced(next);
+    try { localStorage.setItem('rr-reduced-motion', next ? '1' : '0'); } catch (e) {}
+    if (next) {
+      clearInterval(this.decryptTimer);
+      this.setState({ reduced: next, headline: this.HEADLINE });
+      this.revealAll();
+    } else {
+      this.setState({ reduced: next });
+    }
+  }
+
+  // Sections rise 12px as they enter — a single short cue, nothing sustained.
+  bindReveal() {
+    const els = ['projects', 'skills', 'contact'].map(id => document.getElementById(id)).filter(Boolean);
+    this.revealEls = els;
+    if (this.reduced) return;
+    els.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(12px)';
+      el.style.transition = 'opacity 200ms ease-out, transform 200ms ease-out';
+    });
+    this.revealObs = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        en.target.style.opacity = '1';
+        en.target.style.transform = 'translateY(0)';
+        this.revealObs.unobserve(en.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    els.forEach(el => this.revealObs.observe(el));
+  }
+
+  revealAll() {
+    (this.revealEls || []).forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+  }
+
+  // Scroll velocity feeds the lanyard: fast scrolling gives the strap a nudge.
+  bindSwing() {
+    let last = window.scrollY, lastT = performance.now();
+    this.onSwing = () => {
+      if (this.reduced) return;
+      const now = performance.now();
+      const dt = Math.max(16, now - lastT);
+      const v = (window.scrollY - last) / dt;
+      last = window.scrollY; lastT = now;
+      if (this.sim.drag !== null) return;
+      this.sim.v1 += Math.max(-0.6, Math.min(0.6, -v * 0.09));
+    };
+    window.addEventListener('scroll', this.onSwing, { passive: true });
+  }
+
+  // Headline scramble: characters settle left to right, the rest keep churning.
+  decrypt() {
+    const text = this.HEADLINE;
+    const pool = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!?#$%&*+';
+    clearInterval(this.decryptTimer);
+    let revealed = 0;
+    this.decryptTimer = setInterval(() => {
+      revealed += 1;
+      if (revealed > text.length) {
+        clearInterval(this.decryptTimer);
+        this.setState({ headline: text });
+        return;
+      }
+      const out = text.split('').map((ch, i) => {
+        if (i < revealed || ch === ' ') return ch;
+        return pool[Math.floor(Math.random() * pool.length)];
+      }).join('');
+      this.setState({ headline: out });
+    }, 26);
+  }
+
+  // Click sparks — one fixed canvas over the page; the ink flips to whichever
+  // of the two DS extremes reads against whatever was actually clicked.
+  bindSpark() {
+    const canvas = this.sparkRef.current; if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const fit = () => {
+      canvas.width = window.innerWidth * dpr; canvas.height = window.innerHeight * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    fit();
+    this.onSparkResize = fit;
+    window.addEventListener('resize', this.onSparkResize);
+    const sparks = [];
+    const inkFor = (x, y) => {
+      let el = document.elementFromPoint(x, y);
+      while (el) {
+        const bg = getComputedStyle(el).backgroundColor;
+        const m = bg.match(/rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?\)/);
+        if (m && (m[4] === undefined || parseFloat(m[4]) > 0.35)) {
+          const lum = (0.299 * +m[1] + 0.587 * +m[2] + 0.114 * +m[3]) / 255;
+          return lum < 0.5 ? '#f9f4ed' : '#201e1d';
+        }
+        el = el.parentElement;
+      }
+      return '#201e1d';
+    };
+    this.onSparkClick = e => {
+      if (this.reduced) return;
+      const ink = inkFor(e.clientX, e.clientY);
+      const now = performance.now();
+      for (let i = 0; i < 8; i++) sparks.push({ x: e.clientX, y: e.clientY, a: (Math.PI * 2 * i) / 8, t: now, ink });
+    };
+    document.addEventListener('click', this.onSparkClick, true);
+    const D = 420, R = 18, S = 16;
+    const draw = now => {
+      this.sparkRaf = requestAnimationFrame(draw);
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      for (let i = sparks.length - 1; i >= 0; i--) {
+        const s = sparks[i];
+        const p = (now - s.t) / D;
+        if (p >= 1) { sparks.splice(i, 1); continue; }
+        const e = p * (2 - p);
+        const dist = e * R, len = S * (1 - e);
+        ctx.strokeStyle = s.ink; ctx.lineWidth = 2; ctx.lineCap = 'round';
+        ctx.globalAlpha = 1 - e;
+        ctx.beginPath();
+        ctx.moveTo(s.x + dist * Math.cos(s.a), s.y + dist * Math.sin(s.a));
+        ctx.lineTo(s.x + (dist + len) * Math.cos(s.a), s.y + (dist + len) * Math.sin(s.a));
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    };
+    this.sparkRaf = requestAnimationFrame(draw);
+  }
+
+  // The leave button that does not want to be pressed — it flees inside its
+  // own fixed corner field only, and relents after a few dodges.
+  bindDodge() {
+    const btn = this.dodgeBtnRef.current, field = this.dodgeRef.current;
+    if (!btn || !field) return;
+    const st = this.dodgeState = { x: 0, y: 0, armed: true, idle: 0 };
+    const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const place = (ms, ease) => {
+      btn.style.transition = `transform ${ms}ms ${ease}`;
+      btn.style.transform = `translate(${st.x.toFixed(1)}px, ${st.y.toFixed(1)}px)`;
+    };
+    const goHome = () => { st.x = 0; st.y = 0; place(1100, 'cubic-bezier(.23,1,.32,1)'); };
+    this.onDodgeMove = e => {
+      if (!fine.matches || this.state.left || this.reduced) return;
+      const b = btn.getBoundingClientRect();
+      const dx = e.clientX - (b.left + b.width / 2), dy = e.clientY - (b.top + b.height / 2);
+      const d = Math.hypot(dx, dy) || 1;
+      const radius = 190;
+      if (d > radius) return;
+      const gave = this.state.dodges >= 5;
+      if (!gave) {
+        if (d < radius * 0.5 && st.armed) { st.armed = false; this.setState(s => ({ dodges: s.dodges + 1 })); }
+      } else return;
+      if (d > radius * 0.85) st.armed = true;
+      // Nudge away from the pointer a step at a time — the whole viewport is
+      // fair game, so it drifts rather than snapping to a fixed displacement.
+      const push = Math.pow(1 - d / radius, 1.5) * 26;
+      const room = { l: -(window.innerWidth - b.width - 44), r: 0, t: -(window.innerHeight - b.height - 44), b: 0 };
+      st.x = Math.max(room.l, Math.min(room.r, st.x - (dx / d) * push));
+      st.y = Math.max(room.t, Math.min(room.b, st.y - (dy / d) * push));
+      place(420, 'cubic-bezier(.25,.8,.3,1)');
+      clearTimeout(st.idle);
+      st.idle = setTimeout(goHome, 7000);
+    };
+    window.addEventListener('pointermove', this.onDodgeMove, { passive: true });
+  }
+  componentDidUpdate() { if (this.qrRef.current && !this.qrDrawn) this.drawQR(); if (!this.raf) this.startSim(); }
+  componentWillUnmount() {
+    cancelAnimationFrame(this.raf); this.raf = 0;
+    window.removeEventListener('pointermove', this.onMove);
+    window.removeEventListener('pointerup', this.onUp);
+    this.dockRef.current?.removeEventListener('pointermove', this.onDock);
+    this.dockRef.current?.removeEventListener('pointerleave', this.offDock);
+    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('resize', this.onScroll);
+    window.removeEventListener('load', this.onScroll);
+    window.removeEventListener('resize', this.onSparkResize);
+    window.removeEventListener('pointermove', this.onDodgeMove);
+    window.removeEventListener('scroll', this.onSwing);
+    this.revealObs?.disconnect();
+    document.removeEventListener('click', this.onSparkClick, true);
+    cancelAnimationFrame(this.sparkRaf);
+    clearInterval(this.decryptTimer);
+  }
+
+  // Decorative QR-style block — deterministic modules plus three finder eyes.
+  drawQR() {
+    const c = this.qrRef.current; if (!c) return;
+    const ctx = c.getContext('2d'); if (!ctx) return;
+    const N = 21, s = c.width / N;
+    ctx.clearRect(0, 0, c.width, c.height);
+    ctx.fillStyle = '#2e2b25';
+    const rnd = (i, j) => { const x = Math.sin(i * 37.13 + j * 91.7) * 43758.5453; return x - Math.floor(x); };
+    const inEye = (i, j) => (i < 8 && j < 8) || (i > N - 9 && j < 8) || (i < 8 && j > N - 9);
+    for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) {
+      if (inEye(i, j)) continue;
+      if (rnd(i, j) > 0.52) ctx.fillRect(i * s + 0.5, j * s + 0.5, s - 1, s - 1);
+    }
+    const eye = (i, j) => {
+      ctx.fillRect(i * s, j * s, s * 7, s * 7);
+      ctx.clearRect(i * s + s, j * s + s, s * 5, s * 5);
+      ctx.fillRect(i * s + s * 2, j * s + s * 2, s * 3, s * 3);
+    };
+    eye(0, 0); eye(N - 7, 0); eye(0, N - 7);
+    this.qrDrawn = true;
+  }
+
+  startSim() {
+    if (this.raf) return;
+    let last = performance.now();
+    const step = now => {
+      this.raf = requestAnimationFrame(step);
+      const dt = Math.min(0.033, (now - last) / 1000); last = now;
+      const s = this.sim;
+      const g = (this.props.gravity ?? 34) / 10;
+      if (s.drag !== null) {
+        s.a1 += (s.target - s.a1) * Math.min(1, dt * 16);
+        s.v1 = 0;
+      } else {
+        s.v1 += (-g * Math.sin(s.a1) - 0.9 * s.v1) * dt * 6;
+        s.a1 += s.v1 * dt * 2.2;
+      }
+      s.v2 += ((s.a1 - s.a2) * 46 - 8.5 * s.v2) * dt;
+      s.a2 += s.v2 * dt;
+      const strap = this.strapRef.current, card = this.cardRef.current;
+      if (strap) strap.style.transform = `rotate(${(s.a1 * 180 / Math.PI).toFixed(2)}deg)`;
+      if (card) card.style.transform = `rotate(${((s.a2 - s.a1) * 180 / Math.PI).toFixed(2)}deg)`;
+    };
+    this.raf = requestAnimationFrame(step);
+    this.onMove = e => {
+      const s = this.sim; if (s.drag === null) return;
+      const p = this.pivotRef.current?.getBoundingClientRect(); if (!p) return;
+      const dx = e.clientX - p.left, dy = Math.max(40, e.clientY - p.top);
+      // CSS rotate() is clockwise with y down, so a downward strap swings the
+      // opposite way to the raw angle — negate it to follow the pointer.
+      s.target = Math.max(-1.1, Math.min(1.1, -Math.atan2(dx, dy)));
+    };
+    this.onUp = () => {
+      const s = this.sim;
+      if (s.drag === null) return;
+      s.drag = null; s.v1 = 0;
+      if (this.cardRef.current) this.cardRef.current.style.cursor = 'grab';
+    };
+    window.addEventListener('pointermove', this.onMove);
+    window.addEventListener('pointerup', this.onUp);
+  }
+
+  onCardDown = e => {
+    this.sim.drag = 1;
+    if (this.cardRef.current) this.cardRef.current.style.cursor = 'grabbing';
+    try { e.currentTarget.setPointerCapture(e.pointerId); } catch (err) {}
+    this.onMove(e);
+    e.preventDefault();
+  };
+
+  // macOS-style magnification — scale/translate only, so the dock never reflows.
+  bindDock() {
+    const peak = () => (this.props.dockMagnification ?? 118) / 100;
+    const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+    this.onDock = e => {
+      if (!fine.matches || this.reduced) return;
+      this.dockItems.forEach(r => {
+        const el = r.current; if (!el) return;
+        const b = el.getBoundingClientRect();
+        const d = Math.abs(e.clientX - (b.left + b.width / 2));
+        const t = Math.max(0, 1 - d / 140);
+        const s = 1 + (peak() - 1) * (t * t * (3 - 2 * t));
+        el.style.transform = `translateY(${(-10 * (s - 1) / (peak() - 1 || 1)).toFixed(1)}px) scale(${s.toFixed(3)})`;
+        el.style.boxShadow = t > 0.15 ? 'var(--shadow-md)' : 'none';
+      });
+    };
+    this.offDock = () => this.dockItems.forEach(r => {
+      if (!r.current) return;
+      r.current.style.transform = 'translateY(0) scale(1)';
+      r.current.style.boxShadow = 'none';
+    });
+    const dock = this.dockRef.current;
+    if (dock) {
+      dock.addEventListener('pointermove', this.onDock);
+      dock.addEventListener('pointerleave', this.offDock);
+      this.dockItems.forEach(r => {
+        if (r.current) r.current.style.transition = 'transform 180ms cubic-bezier(.34,1.4,.64,1), box-shadow 180ms ease, background 160ms ease';
+      });
+    }
+  }
+
+  // Scrollspy — the section whose top is nearest just above the viewport middle.
+  bindSpy() {
+    const ids = ['home', 'projects', 'skills', 'contact'];
+    this.onScroll = () => {
+      const mid = window.innerHeight * 0.4;
+      // Require the marker line to fall INSIDE a laid-out section, so an
+      // unlaid-out DOM (all rects at 0) matches nothing and keeps the default.
+      let active = null;
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        if (r.height > 0 && r.top <= mid && r.bottom > mid) active = id;
+      });
+      if (active && active !== this.state.view) this.setState({ view: active });
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    window.addEventListener('resize', this.onScroll);
+    window.addEventListener('load', this.onScroll);
+    // Sections have no layout yet on mount — measure after the first paint.
+    requestAnimationFrame(() => requestAnimationFrame(this.onScroll));
+  }
+
+  go(view) {
+    const el = document.getElementById(view);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 14;
+    window.scrollTo({ top, behavior: 'smooth' });
+    this.setState({ view });
+  }
+
+  // Fallback for the "Leave" button when the browser refuses window.close():
+  // a full-screen farewell overlay with a way back, built with direct DOM to
+  // stay above everything without touching the template.
+  showGoodbye() {
+    if (document.getElementById('rr-goodbye')) return;
+    const o = document.createElement('div');
+    o.id = 'rr-goodbye';
+    o.setAttribute('style', 'position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;background:radial-gradient(1100px 620px at 50% 30%,var(--color-accent-200),transparent 70%),var(--color-bg);color:var(--color-text);font-family:var(--font-body)');
+    o.innerHTML =
+      '<div style="font-size:64px;line-height:1">👋</div>' +
+      '<div style="font-family:var(--font-heading);font-size:clamp(28px,5vw,44px)">Thanks for visiting</div>' +
+      '<div style="font-size:13px;letter-spacing:.09em;text-transform:uppercase;color:var(--color-neutral-700)">— Ritarshi Roy</div>' +
+      '<button type="button" id="rr-comeback" style="margin-top:16px;height:44px;padding:0 26px;border:0;border-radius:999px;background:var(--gold-sheen);color:var(--color-neutral-900);font-family:var(--font-heading);font-size:15px;cursor:pointer;box-shadow:var(--shadow-md)">Come back</button>';
+    document.body.appendChild(o);
+    o.querySelector('#rr-comeback').addEventListener('click', () => {
+      o.remove();
+      this.setState({ left: false, dodges: 0 });
+    });
+  }
+
+  renderVals() {
+    const v = this.state.view;
+    const labels = { home: 'About', projects: 'Projects', skills: 'Skills', contact: 'Contact' };
+    return {
+      isHome: v === 'home', isProjects: v === 'projects', isSkills: v === 'skills', isContact: v === 'contact',
+      viewLabel: labels[v],
+      pivotRef: this.pivotRef, strapRef: this.strapRef, cardRef: this.cardRef, qrRef: this.qrRef,
+      dockRef: this.dockRef,
+      d0: this.dockItems[0], d1: this.dockItems[1], d2: this.dockItems[2], d3: this.dockItems[3], d4: this.dockItems[4],
+      reducedMotion: this.state.reduced,
+      motionBg: this.state.reduced ? 'var(--gold-sheen)' : 'transparent',
+      motionInk: this.state.reduced ? 'var(--color-neutral-900)' : 'var(--color-accent)',
+      motionTitle: this.state.reduced ? 'Motion reduced — click to restore animation' : 'Reduce motion',
+      onToggleMotion: () => this.toggleMotion(),
+      skillsFoldered: !this.state.skillsFlat,
+      skillsFlat: this.state.skillsFlat,
+      skillsToggleLabel: this.state.skillsFlat ? 'Back to folders' : 'Show all skills',
+      onToggleSkills: () => this.setState(s => ({ skillsFlat: !s.skillsFlat })),
+      goHome: () => this.go('home'), goProjects: () => this.go('projects'),
+      goSkills: () => this.go('skills'), goContact: () => this.go('contact'),
+      onCardDown: this.onCardDown,
+      headline: this.state.headline,
+      onDecrypt: () => { if (!this.reduced) this.decrypt(); },
+      sparkRef: this.sparkRef, dodgeRef: this.dodgeRef, dodgeBtnRef: this.dodgeBtnRef,
+      leaveLabel: this.state.left ? 'Fine, you win' : ['Leave', 'Nope', 'Too slow', 'Almost', 'Nearly had me', 'Okay, okay'][Math.min(this.state.dodges, 5)],
+      onCatchLeave: () => {
+        this.setState({ left: true });
+        // Try to close the tab. Browsers only honour window.close() for tabs a
+        // script opened; re-marking this one as self-opened nudges some to
+        // allow it. Most modern browsers still block it (and log a harmless
+        // warning), so if we are still here a moment later, show a farewell.
+        try { window.open('', '_self'); } catch (e) {}
+        try { window.close(); } catch (e) {}
+        setTimeout(() => { if (!window.closed) this.showGoodbye(); }, 300);
+      },
+      onFlip: () => this.setState(s => ({ flipped: !s.flipped })),
+      flipTransform: this.state.flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+      projectItems: [
+        { label: 'MarketLens — Android', href: 'https://github.com/horserider2146/MarketLens' },
+        { label: 'StochClaim — fraud AI', href: 'https://github.com/addz9015/DataAnalysisAgent' },
+        { label: 'QuantumDDA — DBMS', href: 'https://github.com/horserider2146/quantum-circuit-dbms' },
+        { label: 'Paperclip — LAN clipboard', href: 'https://github.com/horserider2146' },
+        { label: 'F1 Analytics Dashboard', href: 'https://github.com/horserider2146' },
+        { label: 'Download CV', href: 'assets/Ritarshi_Roy_CV.pdf', download: 'Ritarshi_Roy_CV.pdf' }
+      ],
+      skillGroups: [
+        ['Languages', ['Python', 'C', 'C++', 'SQL', 'Kotlin', 'JavaScript']],
+        ['Frameworks', ['FastAPI', 'Express.js', 'React', 'Streamlit', 'Node.js']],
+        ['Data & AI', ['Claude API', 'XGBoost', 'Hidden Markov', 'PostgreSQL', 'Redis']],
+        ['Android & Ops', ['MVVM', 'Room', 'Retrofit', 'Docker', 'Power BI']]
+      ].map(([title, items]) => ({ title, items: items.map(l => ({ label: l })) })),
+      skillLanguages: ['Python', 'C', 'C++', 'SQL', 'Kotlin', 'JavaScript'].map(l => ({ label: l, href: '#' })),
+      skillFrameworks: ['FastAPI', 'Express.js', 'React', 'Streamlit', 'Node.js'].map(l => ({ label: l, href: '#' })),
+      skillData: ['Claude API', 'XGBoost', 'Hidden Markov', 'PostgreSQL', 'Redis'].map(l => ({ label: l, href: '#' })),
+      skillOps: ['MVVM', 'Room', 'Retrofit', 'Docker', 'Power BI'].map(l => ({ label: l, href: '#' }))
+    };
+  }
+}
+</script>
+</body>
+</html>
